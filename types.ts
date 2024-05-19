@@ -32,3 +32,13 @@ export type QuestionCardProps = {
   handleCheck: (answer: string) => void;
   handleSelect: (answer: string) => string | undefined;
 };
+
+export interface LeaderboardData {
+  id : string
+  name: string;
+  email: string;
+  gender: string;
+  totalQuestions: number;
+  correctAnswers: number;
+  avgTime: number;
+}
