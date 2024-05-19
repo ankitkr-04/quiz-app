@@ -38,7 +38,7 @@ export default function Header() {
                     <div className="flex items-center justify-end md:gap-3">
                         <Link
                             href="/leaderboard"
-                            className={`sm:hidden inline-flex items-center justify-center border-none px-3 py-2 transition-all duration-150 hover:bg-gray-100 rounded-lg ${isActive("/leaderboard") ? "bg-gray-100" : ""}`}
+                            className={`sm:hidden inline-flex items-center justify-center border-none mr-1 px-3 py-2 transition-all duration-150 hover:bg-violet-100 rounded-lg ${isActive("/leaderboard") ? "bg-gray-100" : ""}`}
                         >
                             <Image src='/leaderboard.svg' alt='Leaderboard Icon' width={24} height={24} />
                         </Link>
