@@ -55,7 +55,6 @@ const Questions = ({ questions, limit }: Props) => {
         }));
     }, [quizState.curr, questions, shuffleAnswers, limit]);
 
-    // Timer logic using useInterval hook
     useInterval(() => {
         setQuizState((prevState) => ({
             ...prevState,
@@ -63,9 +62,20 @@ const Questions = ({ questions, limit }: Props) => {
         }));
         
         if (quizState.timeLeft === 0) {
-            showCorrectAnswer(); // Handle timeout
+            showCorrectAnswer(); 
         }
     }, quizState.timeLeft > 0 && !quizState.selected ? 1000 : null);
+
+    const handleShowResult = () => {
+        const resultData = {
+            totalQuestions: questions.length,
+            correctAnswers: quizState.score,
+            totalTime: quizState.totalTime,
+        };
+        sessionStorage.setItem('quizResult', JSON.stringify(resultData));
+        router.push('/result');
+    };
+    
 
     const showCorrectAnswer = () => {
         setQuizState((prevState) => ({
@@ -121,10 +131,8 @@ const Questions = ({ questions, limit }: Props) => {
         router.push("/");
     };
 
-    const handleShowResult = () => {
-        // Handle showing quiz results
-    };
-
+    
+    
     return (
         <div className="wrapper">
             <div className="bg-white p-4 shadow-md w-full md:w-[80%] lg:w-[70%] max-w-5xl rounded-md">
