@@ -40,3 +40,9 @@ export interface LeaderboardData {
   correctAnswers: number;
   avgTime: number;
 }
+
+export interface MultiSelectProps {
+  options: string[];
+  selectedOptions: string[];
+  onChange: (selectedOptions: string[]) => void;
+}

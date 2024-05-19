@@ -1,18 +1,17 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { categoryOptions, difficultyOptions } from '@/constants/index';
 import { QuizOptions } from '@/types';
 
 const useQuizOptionsForm = () => {
   const router = useRouter();
-
   const [formValues, setFormValues] = useState<QuizOptions>({
     categories: [],
     numQuestions: 10,
     difficulty: 'easy',
   });
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleFormChange = (changedValues: any) => {
+  const handleFormChange = (changedValues: Partial<QuizOptions>) => {
     setFormValues((prevValues) => ({
       ...prevValues,
       ...changedValues,
@@ -20,22 +19,22 @@ const useQuizOptionsForm = () => {
   };
 
   const handleFormSubmit = async () => {
-    localStorage.setItem('quizOptions', JSON.stringify(formValues));
-
+    setIsLoading(true);
     try {
-      router.push('/quiz');
+      localStorage.setItem('quizOptions', JSON.stringify(formValues));
+      router.push('/quiz'); // Redirect to /quiz after saving options
     } catch (error) {
-      console.error('Error saving quiz options:', error);
-      router.push('/quiz');
+      console.error('Failed to save quiz options:', error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return {
     formValues,
+    isLoading,
     handleFormChange,
     handleFormSubmit,
-    categoryOptions,
-    difficultyOptions,
   };
 };
 
