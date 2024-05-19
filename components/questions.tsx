@@ -6,6 +6,7 @@ import { useShuffle } from "@/lib/utils";
 import { Button, Divider } from "antd";
 import { useRouter } from "next/navigation";
 import useInterval from "@/hooks/useInterval";
+import axios from "axios";
 
 type Props = {
     questions: Question[];
@@ -66,15 +67,28 @@ const Questions = ({ questions, limit }: Props) => {
         }
     }, quizState.timeLeft > 0 && !quizState.selected ? 1000 : null);
 
-    const handleShowResult = () => {
-        const resultData = {
-            totalQuestions: questions.length,
-            correctAnswers: quizState.score,
-            totalTime: quizState.totalTime,
-        };
-        sessionStorage.setItem('quizResult', JSON.stringify(resultData));
-        router.push('/result');
+    const handleShowResult = async () => {
+    const user = JSON.parse(localStorage.getItem('userInfo') || 'null');
+    const quizResult = {
+        userEmail: user.email,
+        correct: quizState.score,
+        incorrect: questions.length - quizState.score,
+        totalTime: quizState.totalTime,
+        totalQuestions: questions.length
     };
+
+    if (user) {
+        try {
+            const response = await axios.post('/api/results', quizResult);
+            console.log('Quiz result saved:', response.data);
+        } catch (error) {
+            console.error('Error saving quiz result:', error);
+        }
+    }
+
+    sessionStorage.setItem('quizResult', JSON.stringify(quizResult));
+    router.push('/result');
+};
     
 
     const showCorrectAnswer = () => {
