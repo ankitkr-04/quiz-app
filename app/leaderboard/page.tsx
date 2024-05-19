@@ -1,12 +1,12 @@
-// pages/leaderboard.tsx
 "use client"
 import { Table, Spin, Button } from 'antd';
 import useLeaderboardData from '@/hooks/useLeaderboardData';
 import useTablePagination from '@/hooks/usePagination';
+import Loader from '@/components/loader';
 
 const LeaderboardPage = () => {
-    const { leaderboardData, loading, pagination } = useLeaderboardData();
-    const { pagination: tablePagination, handleTableChange } = useTablePagination(pagination);
+  const { leaderboardData, loading, pagination } = useLeaderboardData();
+  const { pagination: tablePagination, handleTableChange } = useTablePagination(pagination);
   const columns = [
     {
       title: 'Name',
@@ -44,9 +44,7 @@ const LeaderboardPage = () => {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center h-screen">
-        <Spin size="large" />
-      </div>
+     <></>
     );
   }
 
@@ -69,12 +67,12 @@ const LeaderboardPage = () => {
         dataSource={leaderboardData}
         columns={columns}
         rowKey={leaderboardData => leaderboardData.id}
-        // pagination={shouldShowPagination ? {
-        //   current: pagination.current,
-        //   pageSize: pagination.pageSize,
-        //   total: pagination.total,
-        //   onChange: handleTableChange,
-        // } : false}
+      // pagination={shouldShowPagination ? {
+      //   current: pagination.current,
+      //   pageSize: pagination.pageSize,
+      //   total: pagination.total,
+      //   onChange: handleTableChange,
+      // } : false}
       />
     </div>
   );

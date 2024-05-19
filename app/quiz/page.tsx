@@ -1,4 +1,5 @@
 'use client'
+import Loader from "@/components/loader";
 import Questions from "@/components/questions";
 import useFetchQuestions from "@/hooks/useFetchQuestions";
 import { QuizOptions } from "@/types";
@@ -18,7 +19,7 @@ const QuizPage = () => {
     const { questions, loading, error } = useFetchQuestions(options);
     
 
-    if (loading) return <p>Loading...</p>;
+    if (loading) return <Loader />;
     if (error) return <p>{error}</p>;
   
     return (

@@ -3,7 +3,7 @@ export interface QuizOptions {
   numQuestions: number;
   difficulty: string;
 }
-
+export interface UserFormProps {}
 export interface Question {
   category: string;
   id: string;
@@ -22,8 +22,6 @@ export interface Question {
 export interface QuestionType {
   text: string;
 }
-
-
 
 export type QuestionCardProps = {
   question: QuestionType;

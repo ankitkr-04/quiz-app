@@ -1,11 +1,25 @@
 "use client"
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Form, Slider, Select, Button, Space, message } from 'antd';
+import { useRouter } from 'next/navigation';
 import useQuizOptionsForm from '@/hooks/useQuizOptionsForm';
+import Loader from '@/components/loader';
 
 const { Option } = Select;
 
 const QuizOptionsPage: React.FC = () => {
+  const router = useRouter();
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const userInfo = localStorage.getItem('userInfo');
+    if (!userInfo) {
+      router.push('/user');
+    } else {
+      setIsLoading(false);
+    }
+  }, [router]);
+
   const {
     formValues,
     handleFormChange,
@@ -33,6 +47,10 @@ const QuizOptionsPage: React.FC = () => {
     }
   };
 
+  if (isLoading) {
+    return (<Loader/>);
+  }
+
   return (
     <Form
       name="quizOptionsForm"
@@ -54,8 +72,7 @@ const QuizOptionsPage: React.FC = () => {
           max={50}
           value={formValues.numQuestions}
           onChange={(value) => handleFormChange({ numQuestions: value })}
-          tooltip={{open: true, placement: 'bottom'}}
-          
+          tooltip={{ open: true, placement: 'bottom' }}
         />
       </Form.Item>
 
