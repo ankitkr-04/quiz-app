@@ -24,7 +24,7 @@ const QuizPage = () => {
   
     return (
       <div>
-        <h1>Quiz</h1>
+
         <Questions questions={questions} limit={options.numQuestions} />
       </div>
     );

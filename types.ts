@@ -46,3 +46,15 @@ export interface MultiSelectProps {
   selectedOptions: string[];
   onChange: (selectedOptions: string[]) => void;
 }
+
+export interface ResultData {
+  totalQuestions: number;
+  correct: number;
+  totalTime: number;
+}
+
+export interface UserDataProps{
+  name: string,
+  email: string,
+  gender: string
+}

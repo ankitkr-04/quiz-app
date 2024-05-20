@@ -8,6 +8,10 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      colors: {
+        lightPurple: '#E8E5FA',
+        darkPurple: '#6251DD',
+      },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
@@ -32,7 +36,8 @@ const config: Config = {
           },
         },
       },
-      
+
+
     },
 
   },

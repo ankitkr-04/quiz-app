@@ -2,11 +2,13 @@
 import React, { useState } from 'react';
 import useSaveUser from '@/hooks/useSaveUser';
 import Loader from './loader';
-import Image from 'next/image'; // Assuming you are using Next.js
+import Image from 'next/image'; 
+
+import { UserDataProps } from '@/types';
 
 const UserForm: React.FC = () => {
-  const { onFinish, loading, successMessageVisible } = useSaveUser();
-  const [formData, setFormData] = useState({
+  const { onFinish, loading } = useSaveUser();
+  const [formData, setFormData] = useState<UserDataProps>({
     name: '',
     email: '',
     gender: ''

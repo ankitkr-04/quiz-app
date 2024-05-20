@@ -57,39 +57,37 @@ const Questions = ({ questions, limit }: Props) => {
     }, [quizState.curr, questions, shuffleAnswers, limit]);
 
     useInterval(() => {
-        setQuizState((prevState) => ({
-            ...prevState,
-            timeLeft: prevState.timeLeft > 0 && !prevState.selected ? prevState.timeLeft - 1 : prevState.timeLeft,
-        }));
-        
-        if (quizState.timeLeft === 0) {
-            showCorrectAnswer(); 
-        }
+        setQuizState((prevState) => {
+            const newTimeLeft = prevState.timeLeft > 0 && !prevState.selected ? prevState.timeLeft - 1 : prevState.timeLeft;
+            if (newTimeLeft === 0) {
+                showCorrectAnswer(); 
+            }
+            return { ...prevState, timeLeft: newTimeLeft };
+        });
     }, quizState.timeLeft > 0 && !quizState.selected ? 1000 : null);
 
     const handleShowResult = async () => {
-    const user = JSON.parse(localStorage.getItem('userInfo') || 'null');
-    const quizResult = {
-        userEmail: user.email,
-        correct: quizState.score,
-        incorrect: questions.length - quizState.score,
-        totalTime: quizState.totalTime,
-        totalQuestions: questions.length
-    };
+        const user = JSON.parse(localStorage.getItem('userInfo') || 'null');
+        const quizResult = {
+            userEmail: user.email,
+            correct: quizState.score,
+            incorrect: questions.length - quizState.score,
+            totalTime: quizState.totalTime,
+            totalQuestions: questions.length
+        };
 
-    if (user) {
-        try {
-            const response = await axios.post('/api/results', quizResult);
-            console.log('Quiz result saved:', response.data);
-        } catch (error) {
-            console.error('Error saving quiz result:', error);
+        if (user) {
+            try {
+                const response = await axios.post('/api/results', quizResult);
+                console.log('Quiz result saved:', response.data);
+            } catch (error) {
+                console.error('Error saving quiz result:', error);
+            }
         }
-    }
 
-    sessionStorage.setItem('quizResult', JSON.stringify(quizResult));
-    router.push('/result');
-};
-    
+        sessionStorage.setItem('quizResult', JSON.stringify(quizResult));
+        router.push('/result');
+    };
 
     const showCorrectAnswer = () => {
         setQuizState((prevState) => ({
@@ -145,8 +143,6 @@ const Questions = ({ questions, limit }: Props) => {
         router.push("/");
     };
 
-    
-    
     return (
         <div className="wrapper">
             <div className="bg-white p-4 shadow-md w-full md:w-[80%] lg:w-[70%] max-w-5xl rounded-md">
