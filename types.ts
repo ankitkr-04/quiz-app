@@ -58,3 +58,19 @@ export interface UserDataProps{
   email: string,
   gender: string
 }
+
+export type QuizState = {
+  curr: number;
+  answers: string[];
+  selected: string;
+  progressValue: number;
+  score: number;
+  timeLeft: number;
+  totalTime: number;
+  questionStartTime: number;
+};
+
+export type QuizProps = {
+  questions: Question[];
+  limit: number;
+};
