@@ -3,7 +3,7 @@ export interface QuizOptions {
   numQuestions: number;
   difficulty: string;
 }
-export interface UserFormProps {}
+export interface UserFormProps { }
 export interface Question {
   category: string;
   id: string;
@@ -32,7 +32,7 @@ export type QuestionCardProps = {
 };
 
 export interface LeaderboardData {
-  id : string
+  id: string
   name: string;
   email: string;
   gender: string;
@@ -53,7 +53,7 @@ export interface ResultData {
   totalTime: number;
 }
 
-export interface UserDataProps{
+export interface UserDataProps {
   name: string,
   email: string,
   gender: string

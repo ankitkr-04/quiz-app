@@ -6,14 +6,12 @@ import { LeaderboardData } from "@/types";
 // Handler function to fetch leaderboard data
 export async function GET(req: NextRequest) {
     try {
-        // Fetch leaderboard data using Prisma, filtering out users with no quiz results
         const leaderboardData = await prisma.user.findMany({
             include: {
                 quizResults: true,
             },
         });
 
-        // Filter out users who have not taken any quizzes
         const filteredLeaderboard = leaderboardData.filter(user => user.quizResults.length > 0);
 
         // Format the data as per LeaderboardData interface

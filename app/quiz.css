@@ -1,0 +1,49 @@
+
+
+.answers-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.option {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    margin: 10px;
+    border: 1px solid gray;
+    border-radius: 20px; 
+    transition: all 0.3s ease;
+    cursor: pointer;
+    font-size: 1.2rem;
+    font-weight: 500;
+    width: 100%;
+    min-height: 60px;
+    max-width: 600px;
+
+    box-sizing: border-box;
+    word-wrap: break-word; /* Ensures text wraps */
+    white-space: normal;
+}
+
+.option.correct {
+    background-color: lightgreen;
+    border-color: darkgreen;
+    color: white;
+}
+
+.option.incorrect {
+    background-color: lightcoral;
+    border-color: darkred;
+    color: white;
+}
+
+.option:disabled {
+    cursor: not-allowed;
+}
+
+.icon {
+    margin-left: 10px;
+}

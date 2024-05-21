@@ -6,27 +6,30 @@ import { QuizOptions } from "@/types";
 import { redirect } from "next/navigation";
 
 const Options = (): QuizOptions | null => {
-    const savedOptions = localStorage.getItem("quizOptions");
-    return savedOptions ? JSON.parse(savedOptions) : null;
+  const savedOptions = localStorage.getItem("quizOptions");
+  return savedOptions ? JSON.parse(savedOptions) : null;
 };
 
 
 const QuizPage = () => {
-    const options = Options();
-    
-    if (!options) { redirect("/quiz-options"); };
+  const options = Options();
 
-    const { questions, loading, error } = useFetchQuestions(options);
-    
+  if (!options) { redirect("/quiz-options"); };
 
-    if (loading) return <Loader />;
-    if (error) return <p>{error}</p>;
-  
-    return (
-      <div>
+  const { questions, loading, error } = useFetchQuestions(options);
 
+
+  if (loading) return <Loader />;
+  if (error) return <p>{error}</p>;
+
+  return (
+    <div className="relative py-3 sm:max-w-2xl my-auto sm:mx-auto  text-left">
+      <div className="relative bg-white mx-2  sm:mx-0 shadow rounded-3xl p-10">
         <Questions questions={questions} limit={options.numQuestions} />
       </div>
-    );
+
+      
+    </div>
+  );
 }
 export default QuizPage;
