@@ -6,7 +6,10 @@ import { QuestionCardProps } from "@/types";
 const QuestionCard: React.FC<QuestionCardProps> = ({ question, answers, selected, handleCheck, handleSelect }) => {
     return (
         <div className="question-card">
-            <h2 className="text-xl text-center font-medium"><span>Q. </span>{question.text}</h2>
+            <div className="font-medium flex items-start">
+                <span className="text-xl font-medium">Q. </span>
+                <h2 className="font-medium text-xl">{question.text}</h2>
+            </div>
             <div className="answers-container">
                 {answers.map((answer, i) => {
                     const isSelected = selected && handleSelect(answer);
@@ -23,13 +26,13 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ question, answers, selected
                                 backgroundColor: isCorrect
                                     ? "lightgreen"
                                     : isIncorrect
-                                    ? "lightcoral"
-                                    : "white",
+                                        ? "lightcoral"
+                                        : "white",
                                 borderColor: isCorrect
                                     ? "green"
                                     : isIncorrect
-                                    ? "red"
-                                    : "gray",
+                                        ? "red"
+                                        : "gray",
                                 boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
                             }}
                         >

@@ -30,7 +30,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
 
         {/* Main Content */}
         <div className="absolute top-16 left-0 right-0 w-full z-10 md:mt-8 backdrop-blur-sm">
-          <div className="md:rounded-lg h-screen py-3 mt-[3rem] px-2 mx-auto lg:max-w-screen-lg max-w-screen-md">
+          <div className="md:rounded-lg h-screen py-3 px-2 mx-auto lg:max-w-screen-lg max-w-screen-md">
             {/* Render children components or content here */}
             {children}
           </div>

@@ -25,14 +25,15 @@ const handleUser = async (body: UserRequestBody): Promise<UserRequestBody | null
                 data: { name, gender },
             });
         }
+        return user;
     } else {
         user = await prisma.user.create({
             data: { name, email, gender },
         });
+        return user;
     }
-
-    return user;
 };
+
 
 export async function POST(req: NextRequest) {
     try {
