@@ -1,35 +1,43 @@
 // hooks/useLeaderboardData.ts
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { LeaderboardData } from '@/types';
 
+interface ApiResponse {
+  leaderboard: LeaderboardData[];
+  currentUser: LeaderboardData | null;
+}
+
 const useLeaderboardData = () => {
   const [leaderboardData, setLeaderboardData] = useState<LeaderboardData[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [pagination, setPagination] = useState({ current: 1, pageSize: 10, total: 0 });
+  const [currentUser, setCurrentUser] = useState<LeaderboardData | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchLeaderboardData = async () => {
       try {
-        const { data, headers } = await axios.get('/api/leaderboard', {
-          params: { page: pagination.current, pageSize: pagination.pageSize },
+        const user = JSON.parse(localStorage.getItem('userInfo') || '{}');
+        const { data } = await axios.get<ApiResponse>('/api/leaderboard', {
+          headers: {
+            'x-user-email': user.email || '',
+          },
         });
 
-        setLeaderboardData(data);
-        setLoading(false);
-        setPagination({
-          ...pagination,
-          total: parseInt(headers['x-total-count'] as string, 10),
-        });
+        setLeaderboardData(data.leaderboard);
+        setCurrentUser(data.currentUser);
       } catch (error) {
         console.error('Error fetching leaderboard data:', error);
+        setError('Failed to fetch leaderboard data');
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchLeaderboardData();
-  }, [pagination]);
+  }, []);
 
-  return { leaderboardData, loading, pagination };
+  return { leaderboardData, currentUser, loading, error };
 };
 
 export default useLeaderboardData;

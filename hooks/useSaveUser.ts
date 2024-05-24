@@ -21,7 +21,9 @@ const useSaveUser = () => {
     } catch (error) {
       console.error('Error:', error);
       message.error('There was an error saving the user information.');
-    } 
+    } finally {
+      setLoading(false);
+    }
   }, [router]);
 
   useEffect(() => {

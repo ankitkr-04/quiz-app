@@ -32,13 +32,13 @@ export type QuestionCardProps = {
 };
 
 export interface LeaderboardData {
-  id: string
+  id: string;
   name: string;
   email: string;
+  score: number;
+  rank: number; 
   gender: string;
-  totalQuestions: number;
-  correctAnswers: number;
-  avgTime: number;
+  avg: number;
 }
 
 export interface MultiSelectProps {
