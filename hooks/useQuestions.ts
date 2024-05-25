@@ -1,10 +1,9 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { useShuffle } from "@/lib/utils";
 import useInterval from "@/hooks/useInterval";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { QuizProps, QuizState } from "@/types";
-
 
 const useQuestions = ({ questions, limit }: QuizProps) => {
     const [quizState, setQuizState] = useState<QuizState>({
@@ -26,7 +25,7 @@ const useQuestions = ({ questions, limit }: QuizProps) => {
     );
 
     useEffect(() => {
-        if (questions?.length >= 5) {
+        if (questions.length >= 5) {
             setQuizState((prevState) => ({
                 ...prevState,
                 answers: shuffleAnswers(),
@@ -42,42 +41,47 @@ const useQuestions = ({ questions, limit }: QuizProps) => {
         setQuizState((prevState) => {
             const newTimeLeft = prevState.timeLeft > 0 && !prevState.selected ? prevState.timeLeft - 1 : prevState.timeLeft;
             if (newTimeLeft === 0) {
-                showCorrectAnswer(); 
+                showCorrectAnswer();
             }
             return { ...prevState, timeLeft: newTimeLeft };
         });
     }, quizState.timeLeft > 0 && !quizState.selected ? 1000 : null);
 
     const handleShowResult = async () => {
-        const user = JSON.parse(localStorage.getItem('userInfo') || 'null');
-        const quizResult = {
-            userEmail: user.email,
-            correct: quizState.score,
-            incorrect: questions.length - quizState.score,
-            totalTime: quizState.totalTime,
-            totalQuestions: questions.length
-        };
-
-        if (user) {
+        if (typeof window !== 'undefined') {
             try {
+                const user = JSON.parse(localStorage.getItem('userInfo') || 'null');
+                if (!user) {
+                    console.error('User not found in localStorage');
+                    return;
+                }
+
+                const quizResult = {
+                    userEmail: user.email,
+                    correct: quizState.score,
+                    incorrect: questions.length - quizState.score,
+                    totalTime: quizState.totalTime,
+                    totalQuestions: questions.length
+                };
+
                 const response = await axios.post('/api/results', quizResult);
                 console.log('Quiz result saved:', response.data);
+
+                sessionStorage.setItem('quizResult', JSON.stringify(quizResult));
+                router.push('/result');
             } catch (error) {
                 console.error('Error saving quiz result:', error);
             }
         }
-
-        sessionStorage.setItem('quizResult', JSON.stringify(quizResult));
-        router.push('/result');
     };
 
-    const showCorrectAnswer = () => {
+    const showCorrectAnswer = useCallback(() => {
         setQuizState((prevState) => ({
             ...prevState,
             selected: questions[quizState.curr].correctAnswer,
         }));
         clearInterval(intervalRef.current as NodeJS.Timeout);
-    };
+    }, [questions, quizState.curr]);
 
     const handleCheck = (answer: string) => {
         setQuizState((prevState) => ({

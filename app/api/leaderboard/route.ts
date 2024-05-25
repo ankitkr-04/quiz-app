@@ -1,11 +1,15 @@
 // pages/api/leaderboard.ts
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/client";
+// import { useSearchParams } from "next/navigation";
 
 const MAX_LEADERBOARD_ENTRIES = 25;
 
 export async function GET(req: NextRequest) {
     try {
+        // const params = useSearchParams();
+        const userEmail =  req.nextUrl.searchParams.get("email") as string | null;
+
         const leaderboardData = await prisma.user.findMany({
             include: {
                 quizResults: true,
@@ -49,7 +53,6 @@ export async function GET(req: NextRequest) {
             avg: entry.avgTime,
         }));
 
-        const userEmail = req.headers.get('x-user-email') || null;
         const currentUser = userEmail ? rankedLeaderboard.find(entry => entry.email === userEmail) : null;
 
         return NextResponse.json({

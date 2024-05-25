@@ -17,10 +17,13 @@ const useLeaderboardData = () => {
   useEffect(() => {
     const fetchLeaderboardData = async () => {
       try {
-        const user = JSON.parse(localStorage.getItem('userInfo') || '{}');
+        let user = JSON.parse('{}');
+        if (typeof window !== 'undefined') {
+          user = JSON.parse(localStorage.getItem('userInfo') || '{}');
+        };
         const { data } = await axios.get<ApiResponse>('/api/leaderboard', {
-          headers: {
-            'x-user-email': user.email || '',
+          params: {
+            email: user.email || '',
           },
         });
 

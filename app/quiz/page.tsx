@@ -6,7 +6,9 @@ import { QuizOptions } from "@/types";
 import { redirect } from "next/navigation";
 
 const Options = (): QuizOptions | null => {
-  const savedOptions = localStorage.getItem("quizOptions");
+  let savedOptions = null;
+  if (typeof window !== 'undefined')
+    savedOptions = localStorage.getItem("quizOptions");
   return savedOptions ? JSON.parse(savedOptions) : null;
 };
 
@@ -28,7 +30,7 @@ const QuizPage = () => {
         <Questions questions={questions} limit={options.numQuestions} />
       </div>
 
-      
+
     </div>
   );
 }
