@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import useSaveUser from '@/hooks/useSaveUser';
 import Loader from './loader';
-import Image from 'next/image'; 
+import Image from 'next/image';
 
 import { UserDataProps } from '@/types';
 
@@ -42,7 +42,7 @@ const UserForm: React.FC = () => {
           </div>
         </div>
         <div className="max-w-md mx-auto">
-          <form onSubmit={handleSubmit} className="divide-y flex flex-col items-center  font-semibold divide-gray-200 rounded pt-6 pb-8 mb-4">
+          <form onSubmit={handleSubmit} className="divide-y flex flex-col items-center font-semibold divide-gray-200 rounded pt-6 pb-8 mb-4">
             <div className="w-full space-y-4">
               <div className="w-full space-y-4">
                 <div className="flex flex-col">
@@ -94,7 +94,7 @@ const UserForm: React.FC = () => {
                     aria-label="Select your gender"
                     required
                   >
-
+                    <option value="" disabled>Select Gender</option>
                     <option value="male">Male</option>
                     <option value="female">Female</option>
                     <option value="other">Other</option>
@@ -103,7 +103,6 @@ const UserForm: React.FC = () => {
                     <Image src='/arrowdown.svg' alt="arrowIcon" width={20} height={20} />
                   </div>
                 </div>
-
               </div>
             </div>
             <button
@@ -113,10 +112,8 @@ const UserForm: React.FC = () => {
               Proceed
               <Image src='/arrowwhite.svg' alt="arrowIcon" width={20} height={20} className="inline-block ml-2" />
             </button>
-
           </form>
         </div>
-
       </div>
     </div>
   );
