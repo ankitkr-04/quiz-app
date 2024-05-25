@@ -16,7 +16,7 @@
 
 
 
-
+/* 
 @layer base {
   h1 {
     @apply text-5xl font-extrabold;
@@ -37,5 +37,5 @@
   p {
     @apply text-base font-normal leading-relaxed;
   }
-}
+} */
 

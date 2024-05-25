@@ -18,8 +18,8 @@ const OtherUsers: React.FC<OtherUsersProps> = ({ users }) => (
                 {user.rank}
               </div>
               <div className="ml-4">
-                <p className="text-xl font-semibold text-white">{user.name}</p>
-                <p className="text-sm text-gray-200"><span className='font-semibold'>{user.avg.toFixed(2)} Sec</span> Average Time</p>
+                <p className="text-lg md:text-xl font-semibold text-white">{user.name}</p>
+                <p className="text-sm text-gray-200"><span className='font-semibold'>{user.avg.toFixed(2)} Sec</span> Avg Time</p>
               </div>
             </div>
 

@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import Loader from "@/components/loader";
 import Questions from "@/components/questions";
 import useFetchQuestions from "@/hooks/useFetchQuestions";
@@ -12,26 +12,25 @@ const Options = (): QuizOptions | null => {
   return savedOptions ? JSON.parse(savedOptions) : null;
 };
 
-
 const QuizPage = () => {
   const options = Options();
 
-  if (!options) { redirect("/quiz-options"); };
+  if (!options) {
+    redirect("/quiz-options");
+  }
 
   const { questions, loading, error } = useFetchQuestions(options);
-
 
   if (loading) return <Loader />;
   if (error) return <p>{error}</p>;
 
   return (
-    <div className="relative py-3 sm:max-w-2xl my-auto sm:mx-auto  text-left">
-      <div className="relative bg-white mx-2  sm:mx-0 shadow rounded-3xl p-10">
+    <div className="w-full max-w-3xl mx-auto">
+      <div className="bg-white shadow-lg rounded-3xl px-7 py-5">
         <Questions questions={questions} limit={options.numQuestions} />
       </div>
-
-
     </div>
   );
-}
+};
+
 export default QuizPage;
