@@ -67,7 +67,7 @@ The easiest way to deploy your Next.js app is to use the **Vercel Platform** fro
 
 Check out the [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
 
-The application is currently deployed at: [Quiz App on Vercel](https://quiz-mzrjnwrku-ankit-kumars-projects-dcb4d762.vercel.app/)
+The application is currently deployed at: [Quiz App on Vercel](https://quiz-app-three-mu-78.vercel.app/)
 
 ## License
 
