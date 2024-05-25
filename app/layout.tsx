@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Rubik } from 'next/font/google'
+import { Rubik } from 'next/font/google';
 import "./globals.css";
 import React from "react";
 import { AntdRegistry } from "@ant-design/nextjs-registry";
@@ -15,7 +15,10 @@ export const metadata: Metadata = {
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <html lang="en">
-      <body className={`${rubik.className} bg-purple-200 w-screen overflow-hidden relative `}>
+      <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+      </head>
+      <body className={`${rubik.className} bg-purple-200 w-screen overflow-hidden relative`}>
         <AntdRegistry>
           <Header />
           <main className="min-h-screen flex justify-center items-center px-4 py-8 relative">
