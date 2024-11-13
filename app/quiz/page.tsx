@@ -1,4 +1,4 @@
-"use client";
+"use client"
 import Loader from "@/components/loader";
 import Questions from "@/components/questions";
 import useFetchQuestions from "@/hooks/useFetchQuestions";
@@ -25,8 +25,8 @@ const QuizPage = () => {
   if (error) return <p>{error}</p>;
 
   return (
-    <div className="w-full max-w-3xl mx-auto">
-      <div className="bg-white shadow-lg rounded-3xl px-7 py-5">
+    <div className="w-full max-w-3xl mx-auto lg:mt-16 relative z-20"> {/* Add relative z-20 */}
+      <div className="bg-white z-10 shadow-lg rounded-3xl p-8 sm:px-10 lg:px-12">
         <Questions questions={questions} limit={options.numQuestions} />
       </div>
     </div>

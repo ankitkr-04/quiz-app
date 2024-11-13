@@ -1,9 +1,9 @@
-import type { Metadata } from "next";
-import { Rubik } from 'next/font/google';
-import "./globals.css";
-import React from "react";
-import { AntdRegistry } from "@ant-design/nextjs-registry";
 import Header from "@/components/header";
+import { AntdRegistry } from "@ant-design/nextjs-registry";
+import type { Metadata } from "next";
+import { Rubik } from "next/font/google";
+import React from "react";
+import "./globals.css";
 
 const rubik = Rubik({ subsets: ["latin"] });
 
@@ -15,10 +15,9 @@ export const metadata: Metadata = {
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <html lang="en">
-      <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-      </head>
-      <body className={`${rubik.className} bg-purple-200 w-screen overflow-hidden relative`}>
+      <body
+        className={`${rubik.className} bg-purple-200 w-screen overflow-hidden relative`}
+      >
         <AntdRegistry>
           <Header />
           <main className="min-h-screen flex justify-center items-center px-4 py-8 relative">
@@ -32,11 +31,8 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
             <div className="absolute -bottom-32 -right-8 w-96 h-96 bg-indigo-400 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-1500"></div>
 
             {/* Main Content */}
-            <div className="relative z-10 backdrop-blur-sm w-full max-w-screen-lg px-4 py-8">
-              <div className="flex justify-center items-center w-full h-full">
-                {children}
-              </div>
-            </div>
+
+            {children}
           </main>
         </AntdRegistry>
       </body>
