@@ -130,7 +130,7 @@ const UserForm: React.FC = () => {
               className={`bg-blue-700 hover:bg-blue-800 text-white font-bold py-4 px-12 rounded-2xl w-full sm:w-auto transition duration-300 flex items-center justify-center ${
                 loading ? "opacity-70 cursor-not-allowed" : ""
               }`}
-              disabled={loading}
+              
             >
               {loading ? (
                 <>
